@@ -8,6 +8,10 @@ import Image from 'next/image';
 // 	() => import('@/components/etcComponent/HydrationTest'),
 // 	{ ssr: false }
 // );
+export const metadata = {
+	title: 'Contact Page',
+	description: 'Next.js starter app description',
+};
 
 export default function Contactpage() {
 	return (

@@ -14,6 +14,11 @@ import { getPosts } from '@/lib/data';
 // 	return res.json();
 // };
 
+export const metadata = {
+	title: 'Blog Page',
+	description: 'Next.js starter app description',
+};
+
 export default async function BlogPage() {
 	// const posts = await getData();
 
