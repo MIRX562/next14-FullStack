@@ -11,8 +11,8 @@ export default async function Loginpage() {
 	return (
 		<div className={styles.container}>
 			<div className={styles.wrapper}>
-				<form className={styles.github} action={handleGithubLogin}>
-					<button>login Github</button>
+				<form action={handleGithubLogin}>
+					<button className={styles.github}>login Github</button>
 				</form>
 				<LoginForm />
 			</div>

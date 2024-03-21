@@ -1,11 +1,22 @@
+'use client';
 import { register } from '@/lib/action';
-// import Link from 'next/link';
-import React from 'react';
+import Link from 'next/link';
+import React, { useEffect } from 'react';
 import styles from './registerForm.module.css';
+import { useFormState } from 'react-dom';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterForm() {
+	const [state, formAction] = useFormState(register, undefined);
+
+	const router = useRouter();
+
+	useEffect(() => {
+		state?.success && router.push('/login');
+	}, [state?.success, router]);
+
 	return (
-		<form action={register} className={styles.form}>
+		<form action={formAction} className={styles.form}>
 			<input type='text' placeholder='username' name='username' />
 			<input type='email' placeholder='email' name='email' />
 			<input type='password' placeholder='password' name='password' />
@@ -15,10 +26,10 @@ export default function RegisterForm() {
 				name='passwordRepeat'
 			/>
 			<button>Register</button>
-			{/* {state?.error}
+			{state?.error}
 			<Link href='/login'>
 				Have an account? <b>Login</b>
-			</Link> */}
+			</Link>
 		</form>
 	);
 }
