@@ -18,7 +18,7 @@ export const getPosts = async () => {
 	try {
 		await connectToDb();
 		const posts = await Post.find();
-		console.log(posts);
+		// console.log(posts);
 		return posts;
 	} catch (error) {
 		console.error('Error fetching posts:', error);
@@ -29,7 +29,7 @@ export const getPost = async (slug) => {
 	try {
 		connectToDb();
 		const post = await Post.findOne({ slug });
-		console.log(post);
+		// console.log(post);
 		return post;
 	} catch (error) {
 		console.log(error);
@@ -41,7 +41,7 @@ export const getUser = async (id) => {
 	try {
 		connectToDb();
 		const user = await User.findById(id);
-		console.log(user);
+		// console.log(user);
 		return user;
 	} catch (error) {
 		console.log(error);
@@ -52,7 +52,7 @@ export const getUsers = async () => {
 	try {
 		connectToDb();
 		const users = await User.find();
-		console.log(users);
+		// console.log(users);
 		return users;
 	} catch (error) {
 		console.log(error);

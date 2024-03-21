@@ -5,19 +5,16 @@ import PostUser from '@/components/postUser/PostUser';
 import { getPost } from '@/lib/data';
 import LoadingFallback from '@/components/loadingFallback/LoadingFallback';
 
-// const getData = async (slug) => {
-// 	const res = await fetch(
-// 		`https://jsonplaceholder.typicode.com/posts/${slug}`,
-// 		{
-// 			cache: 'no-store',
-// 			// next: { revalidate: 3600 },
-// 		}
-// 	);
-// 	if (!res.ok) {
-// 		console.log('error fetching');
-// 	}
-// 	return res.json();
-// };
+const getData = async (slug) => {
+	const res = await fetch(`http://localhost:3000/api/blog/${slug}`, {
+		// cache: 'no-store',
+		// next: { revalidate: 3600 },
+	});
+	if (!res.ok) {
+		console.log('error fetching');
+	}
+	return res.json();
+};
 export const generateMetadata = async ({ params }) => {
 	const { slug } = params;
 	const post = await getPost(slug);
@@ -30,9 +27,9 @@ export const generateMetadata = async ({ params }) => {
 export default async function Postpage({ params }) {
 	const { slug } = params;
 
-	// const post = await getData(slug);
+	const post = await getData(slug);
 
-	const post = await getPost(slug);
+	// const post = await getPost(slug);
 
 	return (
 		<div className={styles.container}>

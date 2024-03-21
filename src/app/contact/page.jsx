@@ -1,5 +1,5 @@
-'use client';
-import React, { useEffect, useState } from 'react';
+// 'use client';
+// import React, { useEffect, useState } from 'react';
 import styles from './contact.module.css';
 import Image from 'next/image';
 // import dynamic from 'next/dynamic';
