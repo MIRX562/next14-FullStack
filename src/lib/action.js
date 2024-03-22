@@ -6,7 +6,10 @@ import { connectToDb } from './utils';
 import { signIn, signOut } from '@/lib/auth';
 import bcrypt from 'bcryptjs';
 
-export const addPost = async (formData) => {
+export const addPost = async (prevState, formData) => {
+	// const title = formData.get("title");
+	// const desc = formData.get("desc");
+	// const slug = formData.get("slug");
 	const { title, desc, slug, userId } = Object.fromEntries(formData);
 
 	try {
@@ -18,14 +21,18 @@ export const addPost = async (formData) => {
 			userId,
 		});
 		await newPost.save();
-		revalidatePath('/blog');
 		console.log('Success');
+		revalidatePath('/blog');
+		revalidatePath('/admin');
 	} catch (error) {
 		console.log(error);
+		return { error: 'Something went wrong!' };
 	}
 
-	console.log(formData);
+	// console.log(formData);
+	return { success: true };
 };
+
 export const deletePost = async (formData) => {
 	const { id } = Object.fromEntries(formData);
 
@@ -34,9 +41,48 @@ export const deletePost = async (formData) => {
 
 		await Post.findByIdAndDelete(id);
 		revalidatePath('/blog');
+		revalidatePath('/admin');
 		console.log('Success delete from db');
 	} catch (error) {
 		console.log(error);
+	}
+
+	console.log(formData);
+};
+export const addUser = async (prevState, formData) => {
+	const { username, email, password, img } = Object.fromEntries(formData);
+
+	try {
+		connectToDb();
+		const newUser = new User({
+			username,
+			email,
+			password,
+			img,
+		});
+		await newUser.save();
+		console.log('Success');
+		revalidatePath('/admin');
+	} catch (error) {
+		console.log(error);
+		return { error: 'Something went wrong!' };
+	}
+
+	// console.log(formData);
+	return { success: true };
+};
+export const deleteUser = async (formData) => {
+	const { id } = Object.fromEntries(formData);
+
+	try {
+		connectToDb();
+		await Post.deleteMany({ userId: id });
+		await User.findByIdAndDelete(id);
+		revalidatePath('/admin');
+		console.log('Success delete from db');
+	} catch (error) {
+		console.log(error);
+		return { error: 'Something went wrong!' };
 	}
 
 	console.log(formData);

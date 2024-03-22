@@ -1,3 +1,4 @@
+'use server';
 import { unstable_noStore } from 'next/cache';
 import { Post, User } from './models';
 import { connectToDb } from './utils';
